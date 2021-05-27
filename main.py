@@ -1,6 +1,7 @@
 import os
 import re
 from urllib.request import urlretrieve, urlopen
+from urllib.error import HTTPError
 from progress.bar import Bar
 
 
@@ -51,7 +52,10 @@ class Parser:
 
     def extract_package(self, package_link):
         versions = []
-        details = self.download_link(package_link)
+        try:
+            details = self.download_link(package_link)
+        except HTTPError:
+            return versions
         links = re.findall(self.link_pattern, details.decode('utf-8'))
         for version_link, package_version in links:
             if package_version.find('.tar.gz') > -1:
