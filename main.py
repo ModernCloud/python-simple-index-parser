@@ -11,7 +11,7 @@ class Parser:
         self.main_file = f'{base_path}/simple_index.html'
         self.base_path = base_path
         self.link_pattern = re.compile('<a href="(.+?)">(.+?)</a>')
-        self.output_file = open(f'{base_path}/package_version.sql', 'w', buffering=100)
+        self.output_file = open(f'{base_path}/package_version.sql', 'a+', buffering=100)
         open(f'{base_path}/last_index', 'a').close()
         self.last_index = open(f'{base_path}/last_index', 'r+')
 
